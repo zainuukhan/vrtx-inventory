@@ -21,4 +21,20 @@ class ProductRepository {
   Future<void> updateProduct(int index, Product product) async {
     await _box.putAt(index, product);
   }
+
+  Product? getProductById(String id) {
+    try {
+      return _box.values.firstWhere((e) => e.id == id);
+    } catch (_) {
+      return null;
+    }
+  }
+
+  Future<void> updateProductById(Product product) async {
+    final index = _box.values.toList().indexWhere((e) => e.id == product.id);
+
+    if (index != -1) {
+      await _box.putAt(index, product);
+    }
+  }
 }

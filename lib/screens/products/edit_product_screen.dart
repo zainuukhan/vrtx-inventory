@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
+import 'package:uuid/uuid.dart';
 import '../../models/product.dart';
 import '../../providers/product_provider.dart';
 
@@ -37,7 +37,7 @@ class _EditProductScreenState extends ConsumerState<EditProductScreen> {
     );
 
     _sellingController = TextEditingController(
-      text: widget.product.sellingPrice.toString(),
+      text: widget.product.defaultSellingPrice.toString(),
     );
 
     _quantityController = TextEditingController(
@@ -57,10 +57,13 @@ class _EditProductScreenState extends ConsumerState<EditProductScreen> {
   Future<void> _updateProduct() async {
     if (!_formKey.currentState!.validate()) return;
 
+    final uuid = Uuid();
+
     final updated = Product(
+      id: uuid.v4(),
       name: _nameController.text.trim(),
       costPrice: double.parse(_costController.text),
-      sellingPrice: double.parse(_sellingController.text),
+      defaultSellingPrice: double.parse(_sellingController.text),
       quantity: int.parse(_quantityController.text),
       createdAt: widget.product.createdAt,
     );

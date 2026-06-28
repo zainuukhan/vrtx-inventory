@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
+import 'package:uuid/uuid.dart';
 import '../../models/product.dart';
 import '../../providers/product_provider.dart';
 
@@ -31,10 +31,13 @@ class _AddProductScreenState extends ConsumerState<AddProductScreen> {
   Future<void> _saveProduct() async {
     if (!_formKey.currentState!.validate()) return;
 
+    final uuid = Uuid();
+
     final product = Product(
+      id: uuid.v4(),
       name: _nameController.text.trim(),
       costPrice: double.parse(_costController.text),
-      sellingPrice: double.parse(_sellingController.text),
+      defaultSellingPrice: double.parse(_sellingController.text),
       quantity: int.parse(_quantityController.text),
       createdAt: DateTime.now(),
     );

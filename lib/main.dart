@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'app.dart';
 import 'database/hive_database.dart';
 

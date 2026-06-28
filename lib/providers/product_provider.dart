@@ -25,19 +25,25 @@ class ProductNotifier extends StateNotifier<List<Product>> {
 
   Future<void> addProduct(Product product) async {
     await repository.addProduct(product);
-
     loadProducts();
   }
 
   Future<void> deleteProduct(int index) async {
     await repository.deleteProduct(index);
-
     loadProducts();
   }
 
   Future<void> updateProduct(int index, Product product) async {
     await repository.updateProduct(index, product);
+    loadProducts();
+  }
 
+  Product? getProductById(String id) {
+    return repository.getProductById(id);
+  }
+
+  Future<void> updateProductById(Product product) async {
+    await repository.updateProductById(product);
     loadProducts();
   }
 }
